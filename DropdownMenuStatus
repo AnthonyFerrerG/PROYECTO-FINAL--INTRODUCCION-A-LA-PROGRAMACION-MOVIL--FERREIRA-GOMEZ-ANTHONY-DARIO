@@ -1,0 +1,23 @@
+@Composable
+fun DropdownMenuStatus(selected: String, onSelect: (String) -> Unit) {
+    val options = listOf("Por leer", "En progreso", "Terminado")
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        OutlinedTextField(
+            value = selected,
+            onValueChange = {},
+            label = { Text("Estado") },
+            readOnly = true,
+            modifier = Modifier.fillMaxWidth().clickable { expanded = true }
+        )
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            options.forEach { option ->
+                DropdownMenuItem(text = { Text(option) }, onClick = {
+                    onSelect(option)
+                    expanded = false
+                })
+            }
+        }
+    }
+}
